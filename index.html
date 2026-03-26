@@ -116,7 +116,7 @@ nav {
 /* ─── GALLERY ─── */
 .gallery {
   max-width:900px; margin:0 auto; padding:0 2.5rem 1.5rem;
-  display:grid; grid-template-columns:1fr 1fr 1fr; gap:.6rem;
+  display:grid; grid-template-columns:1fr 1fr 1fr; gap:.7rem;
 }
 .gallery img {
   width:100%; aspect-ratio:3/2; object-fit:cover; border-radius:5px;
@@ -125,12 +125,11 @@ nav {
 }
 .gallery img:hover { transform:translateY(-2px); box-shadow:0 5px 18px rgba(0,68,136,.1); }
 
-
 /* ─── BOOK COVERS ─── */
 .book-showcase {
+  max-width:900px; margin:0 auto; padding:1.2rem 2.5rem;
   display:flex; gap:1.5rem; flex-wrap:wrap; justify-content:center;
-  margin-top:1.5rem; padding:1.5rem; background:var(--warm);
-  border-radius:8px; border:1px solid var(--stone);
+  background:var(--warm); border-radius:8px; border:1px solid var(--stone);
 }
 .book-cover {
   text-align:center; text-decoration:none; color:var(--ink);
@@ -355,9 +354,8 @@ footer {
   }
   .bio-contact .c-item { text-align:center; }
 
-  /* Carousel mobile */
-  .carousel-wrap { padding:0 1.2rem 1rem; }
-  .carousel-slide { flex:0 0 80%; }
+  /* Gallery mobile */
+  .gallery { grid-template-columns:1fr; padding:0 1.2rem 1rem; }
 
   /* Everything else */
   section, .divider { padding-left:1.2rem; padding-right:1.2rem; }
@@ -463,45 +461,24 @@ footer {
   </div>
 </div>
 
-<!-- Photo Carousel -->
-<div class="carousel-wrap reveal">
-  <div class="carousel" id="photoCarousel">
-    <div class="carousel-slide">
-      <img src="liddy-shu.jpg" alt="At Seton Hall University">
-      <div class="slide-label">At Seton Hall University</div>
-    </div>
-    <div class="carousel-slide">
-      <img src="liddy-lonergan.jpg" alt="Lonergan Institute">
-      <div class="slide-label">Bernard J. Lonergan Institute</div>
-    </div>
-    <div class="carousel-slide">
-      <img src="liddy-symposium.jpg" alt="Catholic Studies Symposium">
-      <div class="slide-label">Catholic Studies Symposium</div>
-    </div>
-  </div>
-  <div class="carousel-nav">
-    <button class="carousel-dot active" onclick="scrollCarousel(0)"></button>
-    <button class="carousel-dot" onclick="scrollCarousel(1)"></button>
-    <button class="carousel-dot" onclick="scrollCarousel(2)"></button>
-  </div>
+<!-- Gallery -->
+<div class="gallery">
+  <img class="reveal-scale" src="liddy-shu.jpg" alt="At Seton Hall University">
+  <img class="reveal-scale" src="liddy-lonergan.jpg" alt="Lonergan Institute">
+  <img class="reveal-scale" src="liddy-symposium.jpg" alt="Catholic Studies Symposium">
 </div>
 
 <!-- Featured Books -->
 <div class="book-showcase reveal">
   <a href="https://www.amazon.com/Startling-Strangeness-Reading-Lonergans-Insight/dp/0761836047" target="_blank" class="book-cover">
-    <img src="https://m.media-amazon.com/images/I/41kQ6ZSETBL._SY445_SX342_.jpg" alt="Startling Strangeness">
+    <img src="https://covers.openlibrary.org/b/isbn/9780761836056-L.jpg" alt="Startling Strangeness">
     <div class="book-title">Startling Strangeness</div>
     <div class="book-year">2007</div>
   </a>
   <a href="https://www.amazon.com/Transforming-Light-Intellectual-Conversion-Lonergan/dp/0814658393" target="_blank" class="book-cover">
-    <img src="https://m.media-amazon.com/images/I/41V30Q00YQL._SY445_SX342_.jpg" alt="Transforming Light">
+    <img src="https://covers.openlibrary.org/b/isbn/9780814658390-L.jpg" alt="Transforming Light">
     <div class="book-title">Transforming Light</div>
     <div class="book-year">1993</div>
-  </a>
-  <a href="https://books.google.com/books/about/Startling_Strangeness.html?id=CMR-AAAAMAAJ" target="_blank" class="book-cover">
-    <img src="https://m.media-amazon.com/images/I/51RZ42MD5XL._SY445_SX342_.jpg" alt="Startling Strangeness Hardcover">
-    <div class="book-title">Startling Strangeness (HC)</div>
-    <div class="book-year">2007</div>
   </a>
 </div>
 
@@ -695,33 +672,12 @@ function filterPubs(type) {
   });
 }
 
-// Scroll animations
 const observer = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) entry.target.classList.add('visible');
   });
 }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 document.querySelectorAll('.reveal, .reveal-left, .reveal-scale').forEach(el => observer.observe(el));
-
-// Carousel
-function scrollCarousel(index) {
-  const c = document.getElementById('photoCarousel');
-  const s = c.children[index];
-  c.scrollTo({ left: s.offsetLeft - c.offsetLeft, behavior: 'smooth' });
-  document.querySelectorAll('.carousel-dot').forEach((d, i) => d.classList.toggle('active', i === index));
-}
-const carousel = document.getElementById('photoCarousel');
-if (carousel) {
-  carousel.addEventListener('scroll', () => {
-    const pos = carousel.scrollLeft;
-    let closest = 0, minDist = Infinity;
-    for (let i = 0; i < carousel.children.length; i++) {
-      const dist = Math.abs(carousel.children[i].offsetLeft - carousel.offsetLeft - pos);
-      if (dist < minDist) { minDist = dist; closest = i; }
-    }
-    document.querySelectorAll('.carousel-dot').forEach((d, i) => d.classList.toggle('active', i === closest));
-  });
-}
 </script>
 </body>
 </html>
