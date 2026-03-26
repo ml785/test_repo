@@ -125,6 +125,29 @@ nav {
 }
 .gallery img:hover { transform:translateY(-2px); box-shadow:0 5px 18px rgba(0,68,136,.1); }
 
+
+/* ─── BOOK COVERS ─── */
+.book-showcase {
+  display:flex; gap:1.5rem; flex-wrap:wrap; justify-content:center;
+  margin-top:1.5rem; padding:1.5rem; background:var(--warm);
+  border-radius:8px; border:1px solid var(--stone);
+}
+.book-cover {
+  text-align:center; text-decoration:none; color:var(--ink);
+  transition:transform .2s;
+}
+.book-cover:hover { transform:translateY(-3px); }
+.book-cover img {
+  width:110px; height:auto; border-radius:4px;
+  box-shadow:0 4px 12px rgba(0,0,0,.12); margin-bottom:.4rem;
+}
+.book-cover .book-title {
+  font-size:.68rem; font-weight:600; color:var(--shu);
+  max-width:120px; line-height:1.3;
+}
+.book-cover .book-year {
+  font-size:.6rem; color:var(--muted);
+}
 /* ─── SECTION DIVIDER ─── */
 .divider {
   max-width:900px; margin:1rem auto; padding:0 2.5rem;
@@ -286,18 +309,57 @@ footer {
 .pirate-badge img { width:100%; height:100%; object-fit:contain; }
 
 /* ─── RESPONSIVE ─── */
+/* Hamburger toggle */
+.nav-toggle { display:none; background:none; border:none; cursor:pointer; padding:4px; }
+.nav-toggle span {
+  display:block; width:20px; height:2px; background:var(--ink);
+  margin:4px 0; transition:all .3s; border-radius:1px;
+}
+
 @media(max-width:700px) {
-  .hero-banner { height:240px; min-height:200px; }
-  .hero-banner .banner-text h1 { font-size:1.8rem; }
-  .hero-banner .banner-text { bottom:1.5rem; padding:0 1.2rem; padding-left:1.2rem; }
-  .bio-strip { grid-template-columns:1fr; text-align:center; padding:1.5rem 1.2rem; }
-  .bio-portrait { width:150px; margin:-4rem auto 0; }
-  .bio-text .affiliation { justify-content:center; }
-  .bio-contact { flex-direction:row; flex-wrap:wrap; justify-content:center; min-width:auto; }
-  .gallery { grid-template-columns:1fr; padding:0 1.2rem 1rem; }
+  /* Nav - hamburger */
+  .nav-toggle { display:block; }
+  .nav-links {
+    display:none; position:absolute; top:56px; left:0; right:0;
+    background:var(--paper); border-bottom:1px solid var(--stone);
+    flex-direction:column; padding:1rem 1.5rem; gap:0;
+    box-shadow:0 8px 20px rgba(0,0,0,.06);
+  }
+  .nav-links.open { display:flex; }
+  .nav-links li { padding:.6rem 0; border-bottom:1px solid var(--stone); }
+  .nav-links li:last-child { border-bottom:none; }
+  .nav-links a { font-size:.82rem; letter-spacing:.06em; }
   nav { padding:0 1.2rem; }
-  .nav-links { gap:1rem; }
-  .nav-links a { font-size:.7rem; }
+
+  /* Hero banner - taller on mobile, centered text */
+  .hero-banner { height:280px; min-height:240px; }
+  .hero-banner .banner-text {
+    bottom:auto; top:50%; transform:translateY(-50%);
+    padding:0 1.5rem; text-align:center;
+  }
+  .hero-banner .banner-text h1 { font-size:1.7rem; }
+  .hero-banner .banner-text .subtitle { font-size:.82rem; }
+
+  /* Bio strip - portrait centered, text stacked, contact as row */
+  .bio-strip {
+    grid-template-columns:1fr; text-align:center; padding:1.5rem 1.2rem;
+    gap:1rem;
+  }
+  .bio-portrait { width:140px; margin:-3.5rem auto 0; }
+  .bio-text .affiliation { justify-content:center; }
+  .bio-text p { font-size:.88rem; }
+  .bio-contact {
+    flex-direction:row; flex-wrap:wrap; justify-content:center;
+    gap:.8rem 1.5rem; min-width:auto; padding-top:.8rem;
+    border-top:1px solid var(--stone);
+  }
+  .bio-contact .c-item { text-align:center; }
+
+  /* Carousel mobile */
+  .carousel-wrap { padding:0 1.2rem 1rem; }
+  .carousel-slide { flex:0 0 80%; }
+
+  /* Everything else */
   section, .divider { padding-left:1.2rem; padding-right:1.2rem; }
   .about-body { grid-template-columns:1fr; }
   .roles-grid { grid-template-columns:1fr; }
@@ -305,48 +367,49 @@ footer {
   .footer-inner { flex-direction:column; text-align:center; }
   .edu-list li { flex-direction:column; }
   .edu-where { text-align:left; }
+  .section-label { font-size:1.3rem; }
 }
 
 /* ─── ANIMATIONS ─── */
 @keyframes fadeIn { from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:translateY(0)} }
-.bio-portrait { animation:fadeIn .5s ease .15s both; }
-.bio-text { animation:fadeIn .5s ease .25s both; }
-.bio-contact { animation:fadeIn .5s ease .35s both; }
-.hero-banner .banner-text h1 { animation:fadeIn .6s ease .1s both; }
-.hero-banner .banner-text .subtitle { animation:fadeIn .6s ease .2s both; }
+.bio-portrait { animation:fadeIn .3s ease .15s both; }
+.bio-text { animation:fadeIn .3s ease .25s both; }
+.bio-contact { animation:fadeIn .3s ease .35s both; }
+.hero-banner .banner-text h1 { animation:fadeIn .35s ease .1s both; }
+.hero-banner .banner-text .subtitle { animation:fadeIn .35s ease .2s both; }
 
 /* Scroll-triggered */
 .reveal {
   opacity:0; transform:translateY(20px);
-  transition:opacity .6s ease, transform .6s ease;
+  transition:opacity .35s ease, transform .35s ease;
 }
 .reveal.visible {
   opacity:1; transform:translateY(0);
 }
 .reveal-left {
   opacity:0; transform:translateX(-20px);
-  transition:opacity .5s ease, transform .5s ease;
+  transition:opacity .3s ease, transform .3s ease;
 }
 .reveal-left.visible {
   opacity:1; transform:translateX(0);
 }
 .reveal-scale {
   opacity:0; transform:scale(.95);
-  transition:opacity .5s ease, transform .5s ease;
+  transition:opacity .3s ease, transform .3s ease;
 }
 .reveal-scale.visible {
   opacity:1; transform:scale(1);
 }
 /* Stagger children */
 .stagger .reveal { transition-delay:0s; }
-.stagger .reveal:nth-child(1) { transition-delay:.05s; }
-.stagger .reveal:nth-child(2) { transition-delay:.1s; }
-.stagger .reveal:nth-child(3) { transition-delay:.15s; }
-.stagger .reveal:nth-child(4) { transition-delay:.2s; }
-.stagger .reveal:nth-child(5) { transition-delay:.25s; }
-.stagger .reveal:nth-child(6) { transition-delay:.3s; }
-.stagger .reveal:nth-child(7) { transition-delay:.35s; }
-.stagger .reveal:nth-child(8) { transition-delay:.4s; }
+.stagger .reveal:nth-child(1) { transition-delay:.03s; }
+.stagger .reveal:nth-child(2) { transition-delay:.06s; }
+.stagger .reveal:nth-child(3) { transition-delay:.09s; }
+.stagger .reveal:nth-child(4) { transition-delay:.12s; }
+.stagger .reveal:nth-child(5) { transition-delay:.15s; }
+.stagger .reveal:nth-child(6) { transition-delay:.18s; }
+.stagger .reveal:nth-child(7) { transition-delay:.21s; }
+.stagger .reveal:nth-child(8) { transition-delay:.24s; }
 </style>
 </head>
 <body>
@@ -362,12 +425,15 @@ footer {
 <div class="nav-accent"></div>
 <nav>
   <a href="#" class="nav-name"><strong>Richard M. Liddy</strong></a>
+  <button class="nav-toggle" onclick="this.nextElementSibling.classList.toggle('open')" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
   <ul class="nav-links">
-    <li><a href="#about">About</a></li>
-    <li><a href="#roles">Roles</a></li>
-    <li><a href="#publications">Publications</a></li>
-    <li><a href="#education">Education</a></li>
-    <li><a href="#contact">Contact</a></li>
+    <li><a href="#about" onclick="this.closest('.nav-links').classList.remove('open')">About</a></li>
+    <li><a href="#roles" onclick="this.closest('.nav-links').classList.remove('open')">Roles</a></li>
+    <li><a href="#publications" onclick="this.closest('.nav-links').classList.remove('open')">Publications</a></li>
+    <li><a href="#education" onclick="this.closest('.nav-links').classList.remove('open')">Education</a></li>
+    <li><a href="#contact" onclick="this.closest('.nav-links').classList.remove('open')">Contact</a></li>
   </ul>
 </nav>
 
@@ -397,11 +463,46 @@ footer {
   </div>
 </div>
 
-<!-- Gallery -->
-<div class="gallery stagger">
-  <img class="reveal-scale" src="liddy-shu.jpg" alt="At Seton Hall University">
-  <img class="reveal-scale" src="liddy-lonergan.jpg" alt="Lonergan Institute">
-  <img class="reveal-scale" src="liddy-symposium.jpg" alt="Catholic Studies Symposium">
+<!-- Photo Carousel -->
+<div class="carousel-wrap reveal">
+  <div class="carousel" id="photoCarousel">
+    <div class="carousel-slide">
+      <img src="liddy-shu.jpg" alt="At Seton Hall University">
+      <div class="slide-label">At Seton Hall University</div>
+    </div>
+    <div class="carousel-slide">
+      <img src="liddy-lonergan.jpg" alt="Lonergan Institute">
+      <div class="slide-label">Bernard J. Lonergan Institute</div>
+    </div>
+    <div class="carousel-slide">
+      <img src="liddy-symposium.jpg" alt="Catholic Studies Symposium">
+      <div class="slide-label">Catholic Studies Symposium</div>
+    </div>
+  </div>
+  <div class="carousel-nav">
+    <button class="carousel-dot active" onclick="scrollCarousel(0)"></button>
+    <button class="carousel-dot" onclick="scrollCarousel(1)"></button>
+    <button class="carousel-dot" onclick="scrollCarousel(2)"></button>
+  </div>
+</div>
+
+<!-- Featured Books -->
+<div class="book-showcase reveal">
+  <a href="https://www.amazon.com/Startling-Strangeness-Reading-Lonergans-Insight/dp/0761836047" target="_blank" class="book-cover">
+    <img src="https://m.media-amazon.com/images/I/41kQ6ZSETBL._SY445_SX342_.jpg" alt="Startling Strangeness">
+    <div class="book-title">Startling Strangeness</div>
+    <div class="book-year">2007</div>
+  </a>
+  <a href="https://www.amazon.com/Transforming-Light-Intellectual-Conversion-Lonergan/dp/0814658393" target="_blank" class="book-cover">
+    <img src="https://m.media-amazon.com/images/I/41V30Q00YQL._SY445_SX342_.jpg" alt="Transforming Light">
+    <div class="book-title">Transforming Light</div>
+    <div class="book-year">1993</div>
+  </a>
+  <a href="https://books.google.com/books/about/Startling_Strangeness.html?id=CMR-AAAAMAAJ" target="_blank" class="book-cover">
+    <img src="https://m.media-amazon.com/images/I/51RZ42MD5XL._SY445_SX342_.jpg" alt="Startling Strangeness Hardcover">
+    <div class="book-title">Startling Strangeness (HC)</div>
+    <div class="book-year">2007</div>
+  </a>
 </div>
 
 <!-- Divider -->
@@ -549,7 +650,7 @@ footer {
       <p>Monsignor Liddy welcomes correspondence related to Lonergan scholarship, Catholic Studies, and the work of the Bernard J. Lonergan Institute.</p>
       <p style="margin-top:.6rem"><strong>Email:</strong> <a href="mailto:richard.liddy@shu.edu">richard.liddy@shu.edu</a><br><strong>Phone:</strong> (973) 275-2525</p>
       <p style="margin-top:.6rem">Center for Catholic Studies<br>Seton Hall University<br>400 South Orange Avenue<br>South Orange, NJ 07079</p>
-      <p style="margin-top:1rem; font-style:italic; color:var(--shu-soft); font-size:.88rem;">Go Pirates Basketball! 🏀</p>
+      <p style="margin-top:1rem; font-style:italic; color:var(--shu-soft); font-size:.88rem;">24 years on the bench as team chaplain and still cheering from the stands. Go Pirates! 🏀</p>
     </div>
     <div class="contact-box reveal">
       <h3>Scholarly Works</h3>
@@ -594,18 +695,33 @@ function filterPubs(type) {
   });
 }
 
-// Scroll-triggered animations
+// Scroll animations
 const observer = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('visible');
-    }
+    if (entry.isIntersecting) entry.target.classList.add('visible');
   });
 }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.reveal, .reveal-left, .reveal-scale').forEach(el => observer.observe(el));
 
-document.querySelectorAll('.reveal, .reveal-left, .reveal-scale').forEach(el => {
-  observer.observe(el);
-});
+// Carousel
+function scrollCarousel(index) {
+  const c = document.getElementById('photoCarousel');
+  const s = c.children[index];
+  c.scrollTo({ left: s.offsetLeft - c.offsetLeft, behavior: 'smooth' });
+  document.querySelectorAll('.carousel-dot').forEach((d, i) => d.classList.toggle('active', i === index));
+}
+const carousel = document.getElementById('photoCarousel');
+if (carousel) {
+  carousel.addEventListener('scroll', () => {
+    const pos = carousel.scrollLeft;
+    let closest = 0, minDist = Infinity;
+    for (let i = 0; i < carousel.children.length; i++) {
+      const dist = Math.abs(carousel.children[i].offsetLeft - carousel.offsetLeft - pos);
+      if (dist < minDist) { minDist = dist; closest = i; }
+    }
+    document.querySelectorAll('.carousel-dot').forEach((d, i) => d.classList.toggle('active', i === closest));
+  });
+}
 </script>
 </body>
 </html>
